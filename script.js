@@ -18,8 +18,8 @@ const currentWeatherIcon = document.getElementById('current-weather-icon');
 
 const errorMessage = document.getElementById('error-message');
 
-const forecastElements = document.getElementsByClassName('forecast')
-//currentDescription.innerText = "sunny"
+const forecastElements = document.getElementsByClassName('forecast');
+//console.log(forecastElements)
 
 function search () {
     clearDisplay();
@@ -30,9 +30,7 @@ function search () {
 }
 
 function getCurrentWeather (city) {
-    // const url = `https://api.weatherbit.io/v2.0/current?city=${city}&key=${KEY}&include=minutely`
-    //lang=[language]
-
+    
     const url = `https://api.weatherbit.io/v2.0/current?city=${city}&key=${KEY}&include=minutely&lang=sv`
     console.log("url: " + url)
     
@@ -85,7 +83,10 @@ function getForecast (city) {
             displayForecast(data)
             return data;
         }
-        
+    ).catch (
+        function () {
+            displayError();
+        }
     )
 }
 
@@ -109,28 +110,20 @@ function displayCurrentWeather(currentWeather) {
 function displayForecast(forecast) {
     
     console.log(forecast);
-    
-    // currentWeatherIcon.src = `https://www.weatherbit.io/static/img/icons/${icon}.png`
-
-    
-    // currentDescription.innerText = `${currentWeather.data[0].weather.description}`
-    // currentTemp.innerText = `Temperatur: ${Math.round(currentWeather.data[0].temp)}`;
-    
-    const forecastChildren = forecastElements[0].children;
-        //Icon
-        const icon = forecast.data[0].weather.icon;
-        forecastChildren[0].src = "https://www.weatherbit.io/static/img/icons/${icon}.png"
 
     //Dubbelkolla så att 0 inte är idag
-    // for (let i=0;i<1;i++) {
-    //     const forecastChildren = forecastElements[0].children;
-    //     //Icon
-    //     const icon = forecast.data[i].weather.icon;
-    //     forecastChildren[0].src = "https://www.weatherbit.io/static/img/icons/${icon}.png"
-    //     //Description
-    //     //forecastChildren[1].innerText = 
-    //     //Temp
-    // }
+    for (let i=0;i<5;i++) {
+        console.log(i)
+        const imgE = forecastElements[i].querySelector("img");
+        const descE = forecastElements[i].querySelector(".description")
+        const tempE = forecastElements[i].querySelector(".temperature")
+        
+        const icon = forecast.data[i+1].weather.icon;
+        imgE.src = `https://www.weatherbit.io/static/img/icons/${icon}.png`
+
+        descE.innerText = `${forecast.data[i+1].weather.description}`
+        tempE.innerText = `Temperatur: ${Math.round(forecast.data[i+1].temp)}`;
+    }
 
 }
 

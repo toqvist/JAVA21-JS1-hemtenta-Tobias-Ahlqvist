@@ -94,7 +94,7 @@ function displayCurrentWeather(currentWeather) {
     
     //Get data from JSON file and modify display element contents to match the JSON data. 
     currentDescription.innerText = `${currentWeather.data[0].weather.description}`
-    currentTemp.innerText = `Temperatur: ${Math.round(currentWeather.data[0].temp)}`;
+    currentTemp.innerText = `Temperatur: ${Math.round(currentWeather.data[0].temp)}°C`;
     currentWind.innerText = `Vindhastighet: ${Math.round(currentWeather.data[0].wind_spd)};`
     currentHumidity.innerText = `Luftfuktighet: ${Math.round(currentWeather.data[0].rh)}`;
 
@@ -121,7 +121,7 @@ function displayForecast(forecast) {
         imgE.src = `https://www.weatherbit.io/static/img/icons/${icon}.png`
 
         descE.innerText = `${forecast.data[i+1].weather.description}`
-        tempE.innerText = `Temperatur: ${Math.round(forecast.data[i+1].temp)}`;
+        tempE.innerText = `Temperatur: ${Math.round(forecast.data[i+1].temp)}°C`;
     }
 
 }

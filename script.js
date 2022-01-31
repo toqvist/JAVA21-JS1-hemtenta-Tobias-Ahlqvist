@@ -19,7 +19,6 @@ const currentWeatherIcon = document.getElementById('current-weather-icon');
 const errorMessage = document.getElementById('error-message');
 
 const forecastElements = document.getElementsByClassName('forecast');
-//console.log(forecastElements)
 
 function search () {
     clearDisplay();
@@ -32,9 +31,6 @@ function search () {
 function getCurrentWeather (city) {
     
     const url = `https://api.weatherbit.io/v2.0/current?city=${city}&key=${KEY}&include=minutely&lang=sv`
-    console.log("url: " + url)
-    
-
 
     fetch(url).then(
         function (response) {
@@ -63,8 +59,7 @@ function getCurrentWeather (city) {
 
 function getForecast (city) {
     const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${KEY}&lang=sv`
-    console.log("url: " + url)
-    
+
     fetch(url).then(
         function (response) {
 
@@ -91,8 +86,7 @@ function getForecast (city) {
 }
 
 function displayCurrentWeather(currentWeather) {
-    console.log(currentWeather);
-
+    
     currentDescription.innerText = `${currentWeather.data[0].weather.description}`
     currentTemp.innerText = `Temperatur: ${Math.round(currentWeather.data[0].temp)}`;
     currentWind.innerText = `Vindhastighet: ${Math.round(currentWeather.data[0].wind_spd)};`
@@ -101,19 +95,13 @@ function displayCurrentWeather(currentWeather) {
     const icon = currentWeather.data[0].weather.icon;
     currentWeatherIcon.src = `https://www.weatherbit.io/static/img/icons/${icon}.png`
 
-    // console.log(currentWeather.data[0].temp)
-    // console.log(currentWeather.data[0].wind_spd)
-    // console.log(currentWeather.data[0].rh)
-
 }
 
 function displayForecast(forecast) {
     
-    console.log(forecast);
-
     //Dubbelkolla så att 0 inte är idag
     for (let i=0;i<5;i++) {
-        console.log(i)
+      
         const imgE = forecastElements[i].querySelector("img");
         const descE = forecastElements[i].querySelector(".description")
         const tempE = forecastElements[i].querySelector(".temperature")
